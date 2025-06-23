@@ -24,11 +24,21 @@ jobs:
       - name: 🛠️ Build static site
         run: npm run build
 
+      - name: 🔍Debug List output folder
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Listing project root:"
+          ls -lah
+          echo "Listing /out directory:"
+          ls -lah ./out
+
+
       - name: 🚀 Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out
+          local-dir: ./out/
           server-dir: /public_html/  # Adjust this based on your host
